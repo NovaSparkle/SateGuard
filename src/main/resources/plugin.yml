@@ -1,0 +1,17 @@
+name: SateGuard
+version: '${project.version}'
+main: org.novasparkle.sateguard.SateGuard
+api-version: '1.16'
+author: NovaSparkle
+depend:
+  - WorldGuard
+  - LunaSpring
+  - PlaceholderAPI
+  - DecentHolograms
+  - Vault
+commands:
+  sateguard:
+    usage: /sateguard
+    description: "Основная команда плагина"
+
+

@@ -1,0 +1,82 @@
+hologram:
+  location:
+    x: 0.5
+    y: 2
+    z: 0.5
+  lines:
+    - '[regionName]'
+    - '&fВладелец: {S}[owner]'
+
+mysql:
+  url: 'jdbc:mysql://localhost:3306/telegram'
+  username: 'root'
+  password: 'Ufus@2008'
+  driverClass: 'com.mysql.cj.jdbc.Driver'
+  tableName: 'SateGuard'
+default:
+  maximumStorages: 64
+regions:
+  smallPrivate:
+    material: DIAMOND_BLOCK
+    radius: 5
+    health: 20
+    maxLevel: 20
+    displayName: '{S}Малый регион'
+    lore:
+      - ''
+      - '&fРазмер региона: {M}10х10'
+      - ''
+  mediumPrivate:
+    material: DIAMOND_ORE
+    radius: 7
+    health: 20
+    displayName: '{S}Средний регион'
+    lore:
+      - ''
+      - '&fРазмер региона: {M}15х15'
+      - ''
+  largePrivate:
+    material: ANCIENT_DEBRIS
+    radius: 12
+    health: 30
+    displayName: '{S}Большой регион'
+    lore:
+      - ''
+      - '&fРазмер региона: {M}25х25'
+      - ''
+  enormousPrivate:
+    material: NETHERITE_BLOCK
+    radius: 22
+    health: 40
+    displayName: '{S}Космический регион'
+    lore:
+      - ''
+      - '&fРазмер региона: {M}45х45'
+      - ''
+
+levelTypes:
+  OPENED:
+    material: LIME_STAINED_GLASS_PANE
+    enchanted: true
+    localName: 'Открыт'
+  NEXT:
+    material: YELLOW_STAINED_GLASS_PANE
+    enchanted: false
+    localName: 'Следующий'
+  CLOSED:
+    material: RED_STAINED_GLASS_PANE
+    enchanted: false
+    localName: 'Недоступен'
+
+
+messages:
+  regionCreated: '{S}Установлен [regionName]'
+  regionRemoved: '{S}Удален [regionName]'
+  flagRegistered: '{S}Флаг {M}[flag] {S}успешно зарегистрирован!'
+  flagAlreadyRegistered: '{S}Флаг {M}[flag] {S}уже существует!'
+  onEnter: '{S}Вы вторглись на территорию игрока {M}[player]'
+  onExit: '{S}Вы покинули на территорию игрока {M}[player]'
+  level:
+    openedLevel: '{E}Этот уровень уже открыт!'
+    lowBalance: '{E}Недостаточно монет на балансе!'
+    lowShards: '{E}Недостаточно осколков!'
