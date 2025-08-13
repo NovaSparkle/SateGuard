@@ -43,4 +43,8 @@ public final class ConfigManager {
     public static boolean getBoolean(String path) {
         return config.getBoolean(path);
     }
+
+    public static double getDouble(String path) {
+        return config.getDouble(path);
+    }
 }

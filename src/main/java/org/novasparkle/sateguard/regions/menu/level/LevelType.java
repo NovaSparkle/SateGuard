@@ -1,15 +1,17 @@
 package org.novasparkle.sateguard.regions.menu.level;
 
+import lombok.Getter;
 import org.bukkit.Material;
 import org.novasparkle.sateguard.ConfigManager;
-
+@Getter
 public enum LevelType {
     OPENED,
     NEXT,
     CLOSED;
+
     private final Material material;
     private final boolean enchanted;
-    public final String localName;
+    private final String localName;
 
     LevelType() {
         this.material = ConfigManager.getMaterial(String.format("levelTypes.%s.material", this.name()));

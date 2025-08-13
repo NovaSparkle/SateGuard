@@ -8,17 +8,17 @@ import org.bukkit.configuration.ConfigurationSection;
 public class RegionType {
     private final String regionId;
     private final Material material;
-    private final String regionName;
+    private final String name;
     private final int radius;
     private final int maxLevel;
     private final int startHealth;
 
     public RegionType(ConfigurationSection section) {
         this.regionId = section.getName();
-        this.regionName = section.getString("displayName");
+        this.name = section.getString("displayName");
         this.radius = section.getInt("radius");
         this.material = Material.valueOf(section.getString("material"));
         this.maxLevel = section.getInt("maxLevel");
-        this.startHealth = section.getInt("startHealth");
+        this.startHealth = section.getInt("health");
     }
 }

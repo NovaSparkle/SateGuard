@@ -6,10 +6,8 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.novasparkle.lunaspring.API.menus.items.NonMenuItem;
-import org.novasparkle.lunaspring.API.util.service.managers.worldguard.RgManager;
+import org.novasparkle.lunaspring.API.util.service.managers.worldguard.GuardManager;
 import org.novasparkle.sateguard.ConfigManager;
-import org.novasparkle.sateguard.regions.RegionType;
-import org.novasparkle.sateguard.regions.SateRegion;
 
 @Getter
 public class RegionItem extends NonMenuItem {
@@ -22,8 +20,8 @@ public class RegionItem extends NonMenuItem {
     public void onPlace(BlockPlaceEvent event) {
         Location location = event.getBlock().getLocation();
         location.getWorld().strikeLightningEffect(location);
-        SateRegion region = new SateRegion(event, this.regionType);
-        RgManager.getRegionManager(location.getWorld()).addRegion(region.getRegion());
-        ConfigManager.sendMessage(event.getPlayer(), "regionCreated", "regionName-%-" + this.regionType.getRegionName());
+        SateRegion region = RegionManager.newRegion(event, this.regionType);
+        GuardManager.getRegionManager(location.getWorld()).addRegion(region.getRegion());
+        ConfigManager.sendMessage(event.getPlayer(), "regionCreated", "regionName-%-" + this.regionType.getName());
     }
 }

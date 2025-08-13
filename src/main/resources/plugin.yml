@@ -13,5 +13,7 @@ commands:
   sateguard:
     usage: /sateguard
     description: "Основная команда плагина"
-
+    aliases:
+      - 'sg'
+      - 'ps'
 

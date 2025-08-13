@@ -34,7 +34,7 @@
           <version>3.4.2</version>
           <configuration>
               <outputDirectory>
-                  C:\Users\ahrem\OneDrive\Рабочий стол\LunaClansTest\plugins
+                  C:\Users\ahrem\OneDrive\Рабочий стол\SateSpaceTest\plugins
               </outputDirectory>
           </configuration>
       </plugin>
@@ -105,7 +105,7 @@
       <dependency>
           <groupId>com.github.NovaSparkle</groupId>
           <artifactId>LunaSpring</artifactId>
-          <version>3.5.9</version>
+          <version>3.5.16</version>
           <scope>provided</scope>
       </dependency>
 
