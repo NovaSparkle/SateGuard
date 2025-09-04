@@ -5,22 +5,23 @@ hologram:
     z: 0.5
   lines:
     - '[regionName]'
-    - '&fВладелец: {S}[owner]'
-    - '&fЗащита: {S}%sg_health![rgName]%'
+    - '{SP} Владелец: {S}[owner]'
+    - '{SP} Защита: {S}%sg_health![rgName]%'
 
 mysql:
-  url: 'jdbc:mysql://localhost:3306/telegram'
-  username: 'root'
-  password: 'Ufus@2008'
+  url: 'jdbc:mysql://localhost:3306/SateSpace'
+  username: 'DjuzoSuzuya'
+  password: 'g7#Q!pL2$zR9@xM5&kY8^vS3*eT6%wN4~jU1'
   driverClass: 'com.mysql.cj.jdbc.Driver'
-  tableName: 'SateGuard'
+  tableName: 'sateguard'
   poolSize: 10
   maxRetries: 5
   asyncThreadPoolSize: 10
 
 settings:
-  maximumStorages: 64
-
+  defaultStorages: 4096
+  invincibleStorages: 56
+  offShardsTime: 18000
   night:
     title: '{S}Судная ночь | [lifeTime]'
     barStyle: 'SEGMENTED_10'
@@ -29,43 +30,67 @@ settings:
     shards:
       1-50: '2-3'
       51-100: '4-6'
+
+items:
+  ShardItem:
+    material: PRISMARINE_CRYSTALS
+    displayName: '{S}Осколок региона'
+    lore:
+      - ''
+      - '&7&oИз руин всегда можно построить что-то прекрасное...'
+    enchanted: true
+    slot: 4
+    NBT:
+      shard: true
+
 regions:
   smallPrivate:
     material: DIAMOND_BLOCK
     radius: 5
     health: 20
-    maxLevel: 20
+    maxLevel: 4
     displayName: '{S}Малый регион'
     lore:
       - ''
-      - '&fРазмер региона: {M}10х10'
+      - '&fРазмер региона: {S}10х10'
+      - '&fУровень: {S}[level]'
+      - '&fЗащита: {S}[health]'
       - ''
   mediumPrivate:
     material: DIAMOND_ORE
     radius: 7
     health: 20
+    maxLevel: 8
     displayName: '{S}Средний регион'
     lore:
       - ''
-      - '&fРазмер региона: {M}15х15'
+      - '&fРазмер региона: {S}15х15'
+      - '&fУровень: {S}[level]'
+      - '&fЗащита: {S}[health]'
       - ''
   largePrivate:
     material: ANCIENT_DEBRIS
     radius: 12
     health: 30
+    maxLevel: 12
     displayName: '{S}Большой регион'
     lore:
       - ''
-      - '&fРазмер региона: {M}25х25'
+      - '&fРазмер региона: {S}25х25'
+      - '&fУровень: {S}[level]'
+      - '&fЗащита: {S}[health]'
       - ''
   enormousPrivate:
     material: NETHERITE_BLOCK
     radius: 22
     health: 40
+    maxLevel: 15
     displayName: '{S}Космический регион'
     lore:
       - ''
-      - '&fРазмер региона: {M}45х45'
+      - '&fРазмер региона: {S}45х45'
+      - '&fУровень: {S}[level]'
+      - '&fЗащита: {S}[health]'
       - ''
 
 levelTypes:
@@ -84,56 +109,68 @@ levelTypes:
 
 
 messages:
-  reloaded: '{S}Плагин перезагружен!'
-  noSuchPlayer: '{E}Игрока с ником [name] не существует!'
-  regionCreated: '{S}Установлен [regionName]'
-  regionRemoved: '{S}Удален [regionName]'
-  flagRegistered: '{S}Флаг {M}[flag] {S}успешно зарегистрирован!'
+  reloaded: '{SP} Плагин перезагружен!'
+  noSuchPlayer: '{E}{SPR} Игрока с ником {E}[name] &fне существует!'
+  playerOffline: '{E}{SPR} Игрок {E}[player] &fоффлайн!'
+  forbiddenForeignRegion: '{E}{SPR} Вам нельзя это делать в чужом регионе!'
+  regionCreated: '{SP} Установлен [regionName]'
+  regionRemoved: '{SP} Удален [regionName]'
+  flagRegistered: '{SP} Флаг {S}[flag] &fуспешно зарегистрирован!'
   flagAlreadyRegistered: '{S}Флаг {M}[flag] {S}уже существует!'
-  onEnter: '{S}Вы вторглись на территорию игрока {M}[player]'
-  onExit: '{S}Вы покинули на территорию игрока {M}[player]'
-  giveShard: '{S}Выдано [amount] осколков региона'
-  maxShards: '{E}Нельзя положить больше [amount] осколков!'
-  intersected: '{E}Нельзя установить регион, поскольку он будет пересекаться с другим!'
-  DBnewAttempt: '{E}Ошибка при исполнении запроса [query], попытка [attempt]'
-  DBbadConnection: '{E}Была устранена ошибка битого соединения!'
-  outOfRegion: '{E}Войдите в регион!'
+  onEnter: '{SP} Вы вторглись на территорию игрока {S}[player]'
+  onExit: '{SP} Вы покинули на территорию игрока {S}[player]'
+  giveShard: '{SP} Игроку {S}[player] &fвыдано {S}[amount] &fосколка(ов) региона'
+  maxShards: '{E}{SPR} Нельзя положить больше [amount] осколков!'
+  intersected: '{E}{SPR} Нельзя установить регион, поскольку он будет пересекаться с другим!'
+  DBnewAttempt: '{E}{SPR} Ошибка при исполнении запроса {E}[query]&f, попытка {E}[attempt]'
+  DBbadConnection: '{E}{SPR} Была устранена ошибка битого соединения!'
+  outOfRegion: '{E}{SPR} Войдите в регион!'
+  tooManyContainers: '{E}{SPR} Достигнут лимит установки контейнеров!'
   level:
-    openedLevel: '{E}Этот уровень уже открыт!'
-    lowBalance: '{E}Недостаточно монет на балансе!'
-    lowShards: '{E}Недостаточно осколков!'
-  DBError: '{E}Произошла ошибка сохранения данных, обратитесь в техническую поддержку с этой проблемой, решим в кратчайшие сроки'
+    maxLevel: '{E}{SPR} Для вашего типа региона достигнут максимальный уровень!'
+    openedLevel: '{E}{SPR} Этот уровень уже открыт!'
+    lowBalance: '{E}{SPR} Вам не хватает {E}монеток!'
+    lowShards: '{E}{SPR} Вам не хватает {E}осколков!'
+  DBError: '{E}{SPR} Произошла ошибка сохранения данных, обратитесь в техническую поддержку с этой проблемой, решим в кратчайшие сроки'
   event:
-    alreadyStarted: '{E}Ивент уже запущен!'
-    started: '{S}Ивент судной ночи начался!'
-    eventNotActive: '{E}Ивент еще не запущен!'
-    stopped: '{S}Ивент завершен!'
+    disabledShards: '{S}По окончании судной ночи в этом регионе не появятся осколки!'
+    forbiddenAtNight: '{E}{SPR} Вам нельзя это делать во время судной ночи!'
+    alreadyStarted: '{E}{SPR} Ивент уже запущен!'
+    started: '{SP} Ивент судной ночи начался!'
+    eventNotActive: '{E}{SPR} Ивент еще не запущен!'
+    stopped: '{SP} Ивент завершен!'
     nightStarted:
       title: '{S}Судная ночь'
-      subTitle: '{M}Регионы потеряли прочность...'
+      subTitle: '{S}Регионы потеряли прочность...'
       broadcast:
-        - '{S}Судная ночь началась!'
-        - '{S}Ваш регион может быть уязвим!'
+        - '{SP} Судная ночь началась!'
+        - '{SP} Ваш регион может быть уязвим!'
         - ''
         - '&7&oДа прибудет анархия...'
     nightEnded:
       title: '{S}Судная ночь'
-      subTitle: '{M}Регионы вновь неприкасаемы'
+      subTitle: '{S}Регионы вновь неприкасаемы'
       broadcast:
-        - '{S}Судная ночь завершилась!'
-        - '{S}Каждый регион, который пережил судную ночь получил осколки!'
+        - '{SP} Судная ночь завершилась!'
+        - '{SP} Каждый регион, который пережил судную ночь получил осколки!'
         - ''
         - '&7&oКак тут тихо...'
 
   commands:
     info:
-      - '{S}⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶{M}[regionName]{S}⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶'
-      - '{S}Владелец: {M}[owner]'
-      - '{S}Участники: {M}[members]'
-      - '{S}Границы: {M}[border1] {S}- {M}[border2]'
+      - '{S}⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶[regionName]{S}⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶'
+      - '{SP} Владелец: {S}[owner]'
+      - '{SP} Участники: {S}[members]'
+      - '{SP} Границы: {S}[border1] &f- {S}[border2]'
       - ''
-    newMember: '{S}Игрок {M}[player] {S}теперь является участником этого региона!'
-    alreadyMember: '{S}Игрок {M}[player] {S}уже является участником этого региона!'
-    notMember: '{S}Участника с ником {M}[player] {S}в этом регионе нет!'
-    removedMember: '{S}Участник {M}[player] {S}удален из этого региона!'
+    regionList:
+      title: '{S}⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶{S}[playerName]{S}⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶'
+      regionLine: '[RUNCOMMAND] {S}[num]. *%*{S}[border1] &f- {S}[border2]*%*/tppos [x] [y] [z]*%* &f| {S}%lunaspring_localize-worlds.[world]% &f| {S}[status]'
+      member: 'Участник'
+      owner: 'Владелец'
+      empty: '{E}{SPR} У игрока {E}[player]&f нету ни одного региона!'
+    newMember: '{SP} Игрок {S}[player] &fтеперь является участником этого региона!'
+    alreadyMember: '{E}{SPR} Игрок {S}[player] &fуже является участником этого региона!'
+    notMember: '{E}{SPR} Участника с ником {S}[player] &fв этом регионе нет!'
+    removedMember: '{SP}Участник {S}[player] &fудален из этого региона!'
     noMembers: '{S}Отсутствуют'

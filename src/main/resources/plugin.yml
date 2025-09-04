@@ -17,3 +17,6 @@ commands:
       - 'sg'
       - 'ps'
 
+permissions:
+  sateguard.admin:
+    default: op

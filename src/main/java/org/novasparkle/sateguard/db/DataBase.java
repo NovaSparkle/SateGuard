@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.novasparkle.lunaspring.API.database.AsyncExecutor;
+import org.novasparkle.lunaspring.API.database.ResultSetHandler;
 import org.novasparkle.lunaspring.API.util.service.managers.worldguard.GuardManager;
 import org.novasparkle.lunaspring.API.util.utilities.LunaMath;
 import org.novasparkle.sateguard.ConfigManager;
@@ -28,6 +30,7 @@ public class DataBase {
         this.executor.executeSync(String.format("CREATE TABLE IF NOT EXISTS %s " +
                 "(ID int PRIMARY KEY NOT NULL AUTO_INCREMENT," +
                 "RegionName varchar(50)," +
+                "Owner varchar(100)," +
                 "RegionId varchar(50)," +
                 "Health int," +
                 "Level int," +
@@ -36,8 +39,9 @@ public class DataBase {
     }
     @SneakyThrows
     public void serializeRegion(SateRegion region) {
-        this.executor.executeAsync(String.format("INSERT INTO %s (RegionName, RegionId, Health, Level, Shards, Fear) VALUES (?, ?, ?, ?, ?, ?)", this.tableName),
+        this.executor.executeAsync(String.format("INSERT INTO %s (RegionName, Owner, RegionId, Health, Level, Shards, Fear) VALUES (?, ?, ?, ?, ?, ?, ?)", this.tableName),
                 region.getRegion().getId(),
+                region.getOwnerName(),
                 region.getRegionType().getRegionId(),
                 region.getHealth(),
                 region.getLevel(),
@@ -88,8 +92,8 @@ public class DataBase {
                 this.removeRegion(name);
                 return null;
             }
-            return new SateRegion(location, set.getString("RegionId"), set.getInt("Health"), set.getInt("Level"), set.getInt("Shards"), Fear.getFear(set.getString("Fear")));
+            return new SateRegion(location, set.getString("Owner"), set.getString("RegionId"), set.getInt("Health"), set.getInt("Level"), set.getInt("Shards"), Fear.getFear(set.getString("Fear")));
         };
-        return this.executor.executeQuery("SELECT RegionName, RegionId, Health, Level, Shards, Fear FROM " + this.tableName, handler);
+        return this.executor.executeQuery("SELECT RegionName, Owner, RegionId, Health, Level, Shards, Fear FROM " + this.tableName, handler);
     }
 }

@@ -1,10 +1,12 @@
 package org.novasparkle.sateguard;
 
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.novasparkle.lunaspring.API.commands.LunaExecutor;
 import org.novasparkle.lunaspring.LunaPlugin;
 import org.novasparkle.sateguard.db.DataBase;
 import org.novasparkle.sateguard.event.EventManager;
+import org.novasparkle.sateguard.event.JudgmentNight;
 import org.novasparkle.sateguard.regions.RegionManager;
 import org.novasparkle.sateguard.regions.RegionTypeList;
 import org.novasparkle.sateguard.regions.SateRegion;
@@ -30,10 +32,14 @@ public final class SateGuard extends LunaPlugin {
         this.saveDefaultConfig();
         this.processListeners();
         db = new DataBase();
-        this.loadFile("levelMenu.yml");
+        this.loadFile("LevelMenu.yml");
         RegionTypeList.registerRegionTypes(ConfigManager.getSection("regions"));
         LunaExecutor.initialize(this);
         RegionManager.load();
+
+        JudgmentNight event = EventManager.deserialize();
+        if (event != null) EventManager.startEvent(event);
+
 
         this.createPlaceholder("sg", (player, parameter) -> {
             if (player == null) return "Игрок не найден";
@@ -55,6 +61,8 @@ public final class SateGuard extends LunaPlugin {
     public void onDisable() {
         super.onDisable();
         EventManager.serialize();
+        EventManager.stopEvent(Bukkit.getConsoleSender());
+
         RegionManager.serializeAll();
         db.getExecutor().shutdown();
     }

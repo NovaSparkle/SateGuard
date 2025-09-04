@@ -4,8 +4,8 @@ import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.FlagContext;
 import org.jetbrains.annotations.Nullable;
 
-public class MaximumStorages extends Flag<Integer> {
-    protected MaximumStorages(String name) {
+public class CurrentStorages extends Flag<Integer> {
+    protected CurrentStorages(String name) {
         super(name);
     }
 

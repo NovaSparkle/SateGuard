@@ -9,9 +9,9 @@ import org.novasparkle.lunaspring.API.menus.items.Item;
 import org.novasparkle.lunaspring.API.util.service.managers.VaultManager;
 import org.novasparkle.lunaspring.API.util.utilities.LunaMath;
 import org.novasparkle.sateguard.ConfigManager;
+import org.novasparkle.sateguard.event.EventManager;
 import org.novasparkle.sateguard.regions.SateRegion;
 import org.novasparkle.sateguard.regions.menu.LevelMenu;
-import org.novasparkle.sateguard.regions.menu.item.Shard;
 import org.novasparkle.sateguard.regions.menu.level.Level;
 import org.novasparkle.sateguard.regions.menu.level.LevelType;
 
@@ -54,21 +54,30 @@ public class LevelButton extends Item {
     public Item onClick(InventoryClickEvent event) {
         event.setCancelled(event.getRawSlot() == event.getSlot());
         Player player = (Player) event.getWhoClicked();
-        LevelMenu menu = ((LevelMenu) this.getMenu());
+        LevelMenu levelMenu = ((LevelMenu) this.getMenu());
         switch (this.levelType) {
             case OPENED -> ConfigManager.sendMessage(player,"level.openedLevel");
             case NEXT -> {
-                if (!VaultManager.hasEnoughMoney(player, this.level.cost())) {
+                if (EventManager.getEvent() != null) {
+                    ConfigManager.sendMessage(player, "event.forbiddenAtNight");
+
+                } else if (this.level.level() > region.getRegionType().getMaxLevel()) {
+                    ConfigManager.sendMessage(player, "level.maxLevel");
+
+                } else if (!VaultManager.hasEnoughMoney(player, this.level.cost())) {
                     ConfigManager.sendMessage(player, "level.lowBalance");
 
-                } else if (menu.findFirstItem(Shard.class) == null || menu.findFirstItem(Shard.class).getAmount() < this.level.shards()) {
+                } else if (this.region.getShards() < this.level.shards()) {
                     ConfigManager.sendMessage(player, "level.lowShards");
 
                 } else {
                     VaultManager.withdraw(player, this.level.cost());
                     this.region.setLevel(this.level);
                     this.region.setShards(region.getShards() - level.shards());
-                    MenuManager.openInventory(new LevelMenu(player, region));
+                    LevelMenu newLevelMenu = new LevelMenu(player, region);
+                    List<LevelMenu> levelMenus = MenuManager.getActiveMenus(LevelMenu.class, true).filter(menu -> menu.getRegion().equals(this.region) && !menu.getPlayer().equals(player)).toList();
+                    levelMenus.forEach(menu -> MenuManager.openInventory(newLevelMenu.copy(menu.getPlayer())));
+                    MenuManager.openInventory(newLevelMenu);
                 }
             }
         }

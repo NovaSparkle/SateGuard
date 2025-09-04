@@ -1,0 +1,333 @@
+title: '{S}Регион игрока {S}[owner]'
+size: 45
+decoration:
+  1:
+    material: WHITE_STAINED_GLASS_PANE
+    displayName: '&7Разделитель'
+    slots:
+      - '0-9'
+      - '17-18'
+      - '26-27'
+      - '35-44'
+  2:
+    material: LIGHT_GRAY_STAINED_GLASS_PANE
+    displayName: '&7Разделитель'
+    slots:
+      - '13'
+      - '20'
+      - '22'
+      - '24'
+      - '29'
+      - '33'
+
+levels: # Названия секций должны соответствовать номеру уровня!
+  1:
+    material: STONE
+    displayName: '{S}1 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - ''
+    slot:
+      row: 4
+      column: 2
+
+  2:
+    material: STONE
+    displayName: '{S}2 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP}'
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 3
+      column: 2
+    cost: 3000
+    shards: 3
+    addHealth: 1
+
+  3:
+    material: STONE
+    displayName: '{S}3 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} {S}&nУстойчивость к криперам'
+      - '{SP}'
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 2
+      column: 2
+    cost: 5000
+    shards: 4
+    addHealth: 1
+    new: CREEPER_EXPLOSION
+
+  4:
+    material: STONE
+    displayName: '{S}4 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 2
+      column: 3
+    cost: 7000
+    shards: 5
+    addHealth: 2
+
+  5:
+    material: STONE
+    displayName: '{S}5 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 2
+      column: 4
+    cost: 10000
+    shards: 7
+    addHealth: 1
+
+  6:
+    material: STONE
+    displayName: '{S}6 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} {S}&nСкрытие голограммы от игроков'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 3
+      column: 4
+    cost: 12000
+    shards: 10
+    addHealth: 1
+    new: HIDE_HOLOGRAM
+
+  7:
+    material: STONE
+    displayName: '{S}7 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP}'
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 4
+      column: 4
+    cost: 15000
+    shards: 12
+    addHealth: 1
+
+  8:
+    material: STONE
+    displayName: '{S}8 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 4
+      column: 5
+    cost: 18000
+    shards: 15
+    addHealth: 1
+
+  9:
+    material: STONE
+    displayName: '{S}9 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 4
+      column: 6
+    cost: 22000
+    shards: 15
+    addHealth: 2
+
+  10:
+    material: STONE
+    displayName: '{S}10 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 3
+      column: 6
+    cost: 25000
+    shards: 18
+    addHealth: 1
+
+  11:
+    material: STONE
+    displayName: '{S}11 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} {S}&nУстойчивость к динамиту'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 2
+      column: 6
+    cost: 50000
+    shards: 25
+    addHealth: 1
+    new: TNT_EXPLOSION
+
+  12:
+    material: STONE
+    displayName: '{S}12 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 2
+      column: 7
+    cost: 30000
+    shards: 20
+    addHealth: 2
+
+  13:
+    material: STONE
+    displayName: '{S}13 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} '
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 2
+      column: 8
+    cost: 40000
+    shards: 25
+    addHealth: 1
+
+  14:
+    material: STONE
+    displayName: '{S}14 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} {S}&nНеприкасаемость блока региона'
+      - '{SP}'
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 3
+      column: 8
+    cost: 75000
+    shards: 32
+    addHealth: 1
+    new: BLOCK_INVINCIBILITY
+
+  15:
+    material: STONE
+    displayName: '{S}15 Уровень'
+    lore:
+      - ''
+      - '{SP} Статус: {S}[levelStatus]'
+      - '{SP} Здоровье региона: {S}[hp]'
+      - '{SP} {S}&nПолная неприкасаемость'
+      - '{SP}'
+      - '{SP} Цена: {S}[cost] &fмонет + {S}[shards] &fосколка(ов)'
+      - ''
+    slot:
+      row: 4
+      column: 8
+    cost: 233000
+    shards: 48
+    addHealth: 2
+    new: INVINCIBILITY
+
+items:
+  ShardSlot:
+    material: IRON_BARS
+    displayName: '{S}Осколки'
+    lore:
+      - ''
+      - '{SP} Здесь будут храниться осколки региона'
+      - '{SP} Они даются за каждую пережитую судную ночь'
+      - '{SP} 50-100% здоровья региона -> 2 осколка'
+      - '{SP} <50% -> 1 осколок'
+      - '{SP}'
+      - '{SP} При улучшении региона, осколки должны лежать в этом слоте'
+      - ''
+    slot: 4
+
+  InfoItem:
+    material: BIRCH_SIGN
+    displayName: '{S}Информация'
+    lore:
+      - ''
+      - '{SP} Судная ночь - ивент, который запускается раз в 3 дня и длится 6 часов'
+      - '{SP} Пока ивент не запущен, все регионы на сервере неприкасаемы'
+      - '{SP} Их нельзя ломать, взрывать, даже визер им ничего не сделает'
+      - '{SP} Но с наступлением судной ночи защита от взрывов спадает'
+      - '{SP} И начинается полноценная анархия'
+      - ''
+      - '{SP} У центрального блока региона есть свое количество здоровья'
+      - '{SP} Когда здоровье заканчивается, регион падает'
+      - '{SP} И территория становится общедоступной'
+      - '{SP} Здоровье региона отнимается с каждым взрывом центрального блока'
+      - ''
+      - '{SP} Каждый регион сервера можно улучшить'
+      - '{SP} На каждом из уровней у региона повышаются характеристики'
+      - '{SP} Для улучшения необходимы осколки, информацию о них можно'
+      - '{SP} Прочитать левее'
+      - '{SP} <--------------'
+      - ''
+    slot: 8
+
+  RegionInfoItem:
+    material: OAK_SIGN
+    displayName: '{S}Регион'
+    lore:
+      - ''
+      - '{SP}Владелец: {S}[owner]'
+      - '{SP}Тип: {S}[type]'
+      - '{SP}Размеры: {S}[radius]x[radius]'
+      - '{SP}Защита: {S}[health]&f/{S}[maxHealth]'
+      - ''
+    slot: 0
+

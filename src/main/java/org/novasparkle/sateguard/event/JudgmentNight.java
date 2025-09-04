@@ -2,7 +2,6 @@ package org.novasparkle.sateguard.event;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
-import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -31,17 +30,24 @@ public class JudgmentNight implements Serializable {
     @Getter
     private final NightBossBar bossBar;
     private final int lifeTime;
+    @Getter
     private final LocalDateTime endTime;
     private final BarUpdater updater;
-
     public JudgmentNight() {
-
         ConfigurationSection nightSection = ConfigManager.getSection("settings.night");
         assert nightSection != null;
         this.lifeTime = nightSection.getInt("endIn");
-        this.updater = new BarUpdater(lifeTime);
+        this.updater = new BarUpdater();
         this.bossBar = new NightBossBar(Objects.requireNonNull(nightSection.getString("title")), nightSection.getString("barColor"), nightSection.getString("barStyle"), SateGuard.getInstance());
         this.endTime = LocalDateTime.now().plusSeconds(lifeTime);
+    }
+
+    public JudgmentNight(LocalDateTime endTime) {
+        ConfigurationSection nightSection = ConfigManager.getSection("settings.night");
+        this.lifeTime = nightSection.getInt("endIn");
+        this.bossBar = new NightBossBar(Objects.requireNonNull(nightSection.getString("title")), nightSection.getString("barColor"), nightSection.getString("barStyle"), SateGuard.getInstance());
+        this.updater = new BarUpdater();
+        this.endTime = endTime;
     }
 
     private void scheduleEventEnd() {
@@ -62,7 +68,7 @@ public class JudgmentNight implements Serializable {
     public void startEvent() {
         this.scheduleEventEnd();
 
-        this.bossBar.getPlayers().forEach(p -> p.showBossBar((BossBar) this.bossBar.getBar()));
+//        this.bossBar.getPlayers().forEach(p -> p.showBossBar((BossBar) this.bossBar.getBar()));
         this.updater.runTaskAsynchronously(SateGuard.getInstance());
         this.applyFlags();
         Bukkit.getScheduler().runTask(SateGuard.getInstance(), () -> Bukkit.getWorlds().forEach(world -> {
@@ -73,7 +79,7 @@ public class JudgmentNight implements Serializable {
         Utils.playersAction(player -> {
             bossBar.addPlayer(player);
             this.sendTitle(player, ConfigManager.getSection("messages.event.nightStarted"));
-            ConfigManager.sendMessage(player, "messages.event.nightStarted.broadcast");
+            ConfigManager.sendMessage(player, "event.nightStarted.broadcast");
         });
     }
 
@@ -125,26 +131,26 @@ public class JudgmentNight implements Serializable {
         Utils.playersAction(player -> {
             bossBar.removePlayer(player);
             this.sendTitle(player, ConfigManager.getSection("messages.event.nightEnded"));
-            ConfigManager.sendMessage(player, "messages.event.nightEnded.broadcast");
+            ConfigManager.sendMessage(player, "event.nightEnded.broadcast");
         });
         Bukkit.getWorlds().forEach(world -> world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true));
         this.bossBar.delete();
         this.updater.cancel();
     }
 
+
     public class BarUpdater extends LunaTask implements Serializable {
-        private int seconds;
-        public BarUpdater(int seconds) {
+
+        public BarUpdater() {
             super(0);
-            this.seconds = seconds;
+
         }
 
         @Override
         @SneakyThrows
         public void start() {
-            while (this.seconds > 0) {
+            while (LocalDateTime.now().isBefore(JudgmentNight.this.endTime)) {
                 if (!this.isActive() || EventManager.getEvent() == null) return;
-                this.seconds--;
                 JudgmentNight.this.updateBar();
                 Thread.sleep(1000L);
             }

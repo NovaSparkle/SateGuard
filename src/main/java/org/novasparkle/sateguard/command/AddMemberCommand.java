@@ -6,10 +6,10 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.novasparkle.lunaspring.API.commands.LunaCompleter;
-import org.novasparkle.lunaspring.API.commands.ZeroArgCommand;
 import org.novasparkle.lunaspring.API.commands.annotations.Args;
 import org.novasparkle.lunaspring.API.commands.annotations.Flags;
 import org.novasparkle.lunaspring.API.commands.annotations.SubCommand;
+import org.novasparkle.lunaspring.API.commands.processor.ZeroArgCommand;
 import org.novasparkle.lunaspring.API.util.service.managers.worldguard.GuardManager;
 import org.novasparkle.lunaspring.API.util.utilities.Utils;
 import org.novasparkle.sateguard.ConfigManager;
@@ -19,8 +19,8 @@ import org.novasparkle.sateguard.regions.SateRegion;
 import java.util.List;
 
 @SubCommand(appliedCommand = "sateguard", commandIdentifiers = {"add"})
-@Flags(flagList = ZeroArgCommand.AccessFlag.PLAYER_ONLY)
-@Args(max = Integer.MAX_VALUE, min = 2)
+@Flags(ZeroArgCommand.AccessFlag.PLAYER_ONLY)
+@Args(max = 2, min = 2)
 public class AddMemberCommand implements LunaCompleter {
     @Override
     public void invoke(CommandSender sender, String[] args) {
@@ -29,9 +29,9 @@ public class AddMemberCommand implements LunaCompleter {
         if (regionName != null) {
             SateRegion sateRegion = RegionManager.getRegion(regionName);
             if (sateRegion.getOwnerName().equals(player.getName()) || player.hasPermission("sateguard.admin")) {
-                OfflinePlayer oPlayer = Bukkit.getOfflinePlayer(args[1]);
-                if (!oPlayer.hasPlayedBefore()) {
-                    ConfigManager.sendMessage(player, "noSuchPlayer", "name-%-" + oPlayer.getName());
+                OfflinePlayer oPlayer = Bukkit.getOfflinePlayerIfCached(args[1]);
+                if (oPlayer == null) {
+                    ConfigManager.sendMessage(player, "noSuchPlayer", "name-%-" + args[1]);
                     return;
                 }
                 DefaultDomain domain = sateRegion.getRegion().getMembers();

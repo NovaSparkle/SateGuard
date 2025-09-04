@@ -48,7 +48,7 @@ public class Shard extends Item {
                 levelMenu.getRegion().setShards(0);
 
                 levelMenu.findItems(Shard.class).forEach(i -> i.remove(levelMenu));
-                ShardSlot shardSlot = new ShardSlot(levelMenu.getConfiguration().getSection("items.shardSlot"));
+                ShardSlot shardSlot = new ShardSlot(levelMenu.getConfig().getSection("items.ShardSlot"));
                 levelMenu.addItems(shardSlot);
                 shardSlot.insert(levelMenu);
             }

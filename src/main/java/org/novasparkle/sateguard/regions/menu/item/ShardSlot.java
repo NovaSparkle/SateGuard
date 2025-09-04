@@ -5,9 +5,9 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.novasparkle.lunaspring.API.configuration.Configuration;
 import org.novasparkle.lunaspring.API.menus.items.Item;
 import org.novasparkle.lunaspring.API.util.service.managers.NBTManager;
+import org.novasparkle.sateguard.ConfigManager;
 import org.novasparkle.sateguard.regions.menu.LevelMenu;
 
 public class ShardSlot extends Item {
@@ -23,11 +23,10 @@ public class ShardSlot extends Item {
         if (shardItem != null && !shardItem.getType().equals(Material.AIR) && NBTManager.hasTag(shardItem, Shard.nbt)) {
             event.setCursor(null);
             LevelMenu menu = (LevelMenu) this.getMenu();
-            Configuration configuration = menu.getConfiguration();
             menu.getRegion().setShards(menu.getRegion().getShards() + shardItem.getAmount());
 
             menu.findItems(ShardSlot.class).forEach(i -> i.remove(menu));
-            Shard shard = new Shard(configuration.getSection("items.shard"), shardItem.getAmount());
+            Shard shard = new Shard(ConfigManager.getSection("items.ShardItem"), shardItem.getAmount());
             shard.setSlot(this.getSlot());
             menu.addItems(shard);
             shard.insert(menu);
